@@ -1,0 +1,62 @@
+system description motion
+theory motion
+	module motion
+        	sort declarations
+                        things, location :: universe
+                        agent :: things
+                        move :: actions
+                                attributes
+                                        theme : agent
+			 		object : things
+                                        initial : location
+                                        dest : location
+	         
+                function declarations
+                        fluents
+                                basic
+                                        total has_location : things * location -> booleans
+			 		has_possession : things * things -> booleans
+			 		defined_has_location : move -> booleans
+					defined_destination : move -> booleans
+
+					possesses : things * things -> booleans
+			
+                axioms
+                        function definitions
+
+                        state constraints
+                                defined_destination(X) if dest(X) = Y.
+
+		      		possesses(O1, O2) if has_possession(O1, O2), O1 != O2.
+		      		possesses(O1, O3) if has_possession(O1, O2), possesses(O2, O3), O1 != O2, O2 != O3, O1 != O3.
+
+                        dynamic causal laws
+                                occurs(X) causes has_location(A, D)             if      	instance(X, move),
+                                                                                        	theme(X) = A,
+                                                                                       		dest(X) = D.
+
+		      		occurs(X) causes has_location(O, D)		if		instance(X, move),
+												theme(X) = A,
+												dest(X) = D,
+												possesses(A, O),
+												object(X) = O.
+
+                               occurs(X) causes -defined_has_location(T)       	if      	instance(X, move),
+                                                                              			-defined_destination(X),
+                                                                               			theme(X) = T.
+ 		
+				occurs(X) causes -defined_has_location(T2)       if      	instance(X, move),
+                                                                              			-defined_destination(X),
+                                                                              			theme(X) = T,
+												possesses(T, T2).
+
+                                occurs(X) causes -has_location(A, I)            if      	instance(X, move),
+                                                                                       		theme(X) = A,
+                                                                               			initial(X) = I.
+
+				occurs(X) causes -has_location(O, I)            if      	instance(X, move),
+                                                                              			theme(X) = A,
+                                                                               			initial(X) = I,
+												possesses(A, O),
+												object(X) = O.
+

@@ -1,0 +1,60 @@
+system description escape
+	
+theory escape
+	
+	module escape
+		sort declarations
+			location, things :: universe
+			agent :: things
+			escape_51_1 :: actions
+				attributes 
+					theme : agent
+					initial : location
+					dest : location
+			escape_51_1_1 :: escape_51_1
+			escape_51_1_1_1 :: escape_51_1_1
+			escape_51_1_1_2 :: escape_51_1_1
+			escape_51_1_1_3 :: escape_51_1_1
+		
+		function declarations
+			fluents
+				basic
+					total has_location : things * location -> booleans
+		
+					defined_theme : escape_51_1 -> booleans
+				
+					defined_destination : escape_51_1 -> booleans
+					
+					defined_initial : escape_51_1 -> booleans
+
+					defined_has_location : escape_51_1 -> booleans
+
+		axioms
+			function definitions
+			
+			state constraints
+				defined_theme(X) if theme(X) = Y.
+                                
+				false if instance(X, escape_51_1), -defined_theme(X).
+
+				defined_destination(X) if dest(X) = Y.
+                       
+			        false if instance(X, escape_51_1_1_2), -defined_destination(X).
+                        	
+				defined_initial(X) if initial(X) = Y.
+				
+			        false if instance(X, escape_51_1_1_1), -defined_initial(X). 
+			
+			dynamic causal laws
+				occurs(X) causes has_location(A, D) 		if 	instance(X, escape_51_1),
+											theme(X) = A,
+											dest(X) = D.
+			
+				occurs(X) causes -defined_has_location(T) 	if 	instance(X, escape_51_1),
+											-defined_destination(X), 
+											-instance(X, escape_51_1_1_2),
+											theme(X) = T.
+
+				occurs(X) causes -has_location(A, I)        	if      instance(X, escape_51_1),
+											theme(X) = A,
+                                                                            		initial(X) = I.

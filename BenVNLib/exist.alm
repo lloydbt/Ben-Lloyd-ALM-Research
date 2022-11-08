@@ -1,0 +1,33 @@
+system description exist
+theory exist
+	module exist
+		sort declarations
+			things, location :: universe
+			object, agent :: things
+			object_or_agent :: object, agent
+			exist_47_1 :: actions
+				attributes
+					initial : location
+					theme : object_or_agent
+
+		function declarations
+			fluents
+				basic
+					total has_location : things * location -> booleans
+					defined_theme : exist_47_1 -> booleans
+					defined_initial : exist_47_1 -> booleans
+
+		axioms
+			function definitions
+
+			state constraints
+				defined_theme(X) if theme(X) = Y.
+				defined_initial(X) if initial(X) = Y.
+
+				false if instance(X, exist_47_1), -defined_theme(X).
+				false if instance(X, exist_47_1), -defined_initial(X).
+
+			dynamic causal laws
+				occurs(X) causes -has_location(T, I)	if	instance(X, exist_47_1),
+										theme(X) = T,
+										initial(X) = I.

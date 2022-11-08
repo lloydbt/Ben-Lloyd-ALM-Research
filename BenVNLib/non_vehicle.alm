@@ -1,0 +1,49 @@
+system description non_vehicle
+theory non_vehicle
+        module non_vehicle
+                sort declarations
+                        things, location :: universe
+                        object, agent :: things
+                        object_or_agent :: object, agent
+                        non_vehicle_51_4_2_1 :: actions
+                                attributes
+                                        initial : location
+                                        theme : object_or_agent
+                                        actor : agent
+                                        dest : location
+
+                function declarations
+                        fluents
+                                basic
+                                        total has_location : things * location -> booleans
+                                        defined_destination : non_vehicle_51_4_2_1 -> booleans
+                                        defined_theme : non_vehicle_51_4_2_1 -> booleans
+                                        defined_initial : non_vehicle_51_4_2_1 -> booleans
+                axioms
+                        function definitions
+
+                        state constraints
+                                defined_theme(X) if theme(X) = Y.
+                                defined_destination(X) if dest(X) = Y.
+                                defined_initial(X) if initial(X) = Y.
+
+                                false if instance(X, non_vehicle_51_4_2_1), -defined_theme(X).
+                                false if instance(X, non_vehicle_51_4_2_1), -defined_initial(X).
+				false if instance(X, non_vehicle_51_4_2_1), -defined_destination(X).
+
+                        dynamic causal laws
+                                occurs(X) causes has_location(T, D)     if      instance(X, non_vehicle_51_4_2_1),
+                                                                                theme(X) = T,
+                                                                                dest(X) = D.
+
+                                occurs(X) causes -has_location(T, I)    if      instance(X, non_vehicle_51_4_2_1),
+                                                                                theme(X) = T,
+                                                                                initial(X) = I.
+
+                                occurs(X) causes has_location(A, D)     if      instance(X, non_vehicle_51_4_2_1),
+                                                                                actor(X) = A,
+                                                                                dest(X) = D.
+
+                                occurs(X) causes -has_location(A, I)    if      instance(X, non_vehicle_51_4_2_1),
+                                                                                actor(X) = A,
+                                                                                initial(X) = I.

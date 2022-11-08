@@ -1,0 +1,45 @@
+system description spray
+theory spray
+        module spray
+                sort declarations
+                        things, location :: universe
+                        object, agent :: things
+                        object_or_agent :: object, agent
+                        spray_9_7 :: actions
+                                attributes
+                                        initial : location
+                                        theme : object_or_agent
+                                        dest : location
+			spray_9_7_1 :: spray_9_7
+
+                function declarations
+                        fluents
+                                basic
+                                        total has_location : things * location -> booleans
+                                        defined_has_location : spray_9_7 -> booleans
+                                        defined_destination : spray_9_7 -> booleans
+                                        defined_theme : spray_9_7 -> booleans
+
+                axioms
+                        function definitions
+
+                        state constraints
+                                defined_theme(X) if theme(X) = Y.
+                                defined_destination(X) if dest(X) = Y.
+
+                                false if instance(X, spray_9_7), -defined_theme(X).
+				false if instance(X, spray_9_7_1), -defined_destination(X).
+
+                        dynamic causal laws
+                                occurs(X) causes has_location(T, D)     if      instance(X, spray_9_7),
+                                                                                theme(X) = T,
+                                                                                dest(X) = D.
+
+                                occurs(X) causes -has_location(T, I)    if      instance(X, spray_9_7),
+                                                                                theme(X) = T,
+                                                                                initial(X) = I.
+
+                                occurs(X) causes -defined_has_location(T)       if      instance(X, spray_9_7),
+											-instance(X, spray_9_7_1),
+                                                                                        theme(X) = T,
+                                                                                        -defined_destination(X).

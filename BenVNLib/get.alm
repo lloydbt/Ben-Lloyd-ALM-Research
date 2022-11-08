@@ -1,0 +1,44 @@
+system description get
+theory get
+        module get
+                sort declarations
+                        things, location :: universe
+                        object, agent :: things
+                        agent_or_location :: location, agent
+			object_or_agent :: object, agent
+                        get_13_5_1 :: actions
+                                attributes
+                                        target : agent
+                                        theme : object_or_agent
+                                        source1 : agent_or_location
+                        get_13_5_1_1 :: get_13_5_1
+
+                function declarations
+                        fluents
+                                basic
+                                        total has_possession : agent_or_location * object_or_agent -> booleans
+                                        defined_target : get_13_5_1 -> booleans
+                                        defined_theme :  get_13_5_1 -> booleans
+					defined_source : get_13_5_1 -> booleans
+                axioms
+                        function definitions
+
+                        state constraints
+                                defined_target(X) if target(X) = Y.
+
+                                false if instance(X, get_13_5_1_1), -defined_target(X).
+
+                                defined_theme(X) if theme(X) = Y.
+				defined_source(X) if source1(X) = Y.
+
+                                false if instance(X, get_13_5_1), -defined_theme(X).
+				false if instance(X, get_13_5_1_1), -defined_source(X).
+
+                        dynamic causal laws
+                                occurs(X) causes has_possession(T, O)   if      instance(X, get_13_5_1),
+                                                                                theme(X) = O,
+                                                                                target(X) = T.
+
+                                occurs(X) causes -has_possession(S, O)  if      instance(X, get_13_5_1),
+                                                                                theme(X) = O,
+                                                                                source1(X) = S.

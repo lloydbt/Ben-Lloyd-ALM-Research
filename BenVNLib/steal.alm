@@ -1,0 +1,40 @@
+system description steal
+theory steal
+        module steal
+                sort declarations
+                        things, location :: universe
+                        object, agent :: things
+                        agent_or_location :: location, agent
+                        object_or_agent :: object, agent
+                        steal_10_5 :: actions
+                                attributes
+                                        target : agent
+                                        theme : object_or_agent
+                                        source1 : agent_or_location
+
+                function declarations
+                        fluents
+                                basic
+                                        total has_possession : agent_or_location * object_or_agent -> booleans
+                                        defined_target : steal_10_5 -> booleans
+                                        defined_theme :  steal_10_5 -> booleans
+                axioms
+                        function definitions
+
+                        state constraints
+                                defined_target(X) if target(X) = Y.
+
+                                false if instance(X, steal_10_5), -defined_target(X).
+
+                                defined_theme(X) if theme(X) = Y.
+
+                                false if instance(X, steal_10_5), -defined_theme(X).
+
+                        dynamic causal laws
+                                occurs(X) causes has_possession(T, O)   if      instance(X, steal_10_5),
+                                                                                theme(X) = O,
+                                                                                target(X) = T.
+
+                                occurs(X) causes -has_possession(S, O)  if      instance(X, steal_10_5),
+                                                                                theme(X) = O,
+                                                                                source1(X) = S.

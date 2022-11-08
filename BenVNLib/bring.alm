@@ -1,0 +1,64 @@
+system description bring
+theory bring
+
+	module bring
+		sort declarations
+			things, location :: universe
+			object, agent :: things
+			bring_11_3 :: actions
+				attributes
+					initial : location
+					theme : object
+					actor : agent
+					dest : location
+			bring_11_3_1 :: bring_11_3
+		
+		function declarations
+			fluents
+				basic
+					total has_location : things * location -> booleans
+					
+					defined_theme : bring_11_3 -> booleans
+					
+					defined_actor : bring_11_3 -> booleans
+
+					defined_destination : bring_11_3 -> booleans
+
+					defined_has_location : bring_11_3 -> booleans
+		axioms
+			function definitions
+			
+			state constraints
+				defined_theme(X) if theme(X) = Y.
+				
+				false if instance(X, bring_11_3), -defined_theme(X).
+
+				defined_actor(X) if actor(X) = Y.
+
+				false if instance(X, bring_11_3), -defined_actor(X).
+				
+				defined_destination(X) if dest(X) = Y.
+
+				false if instance(X, bring_11_3_1), -defined_destination(X).
+			
+			dynamic causal laws
+				occurs(X) causes has_location(T, D)		if	instance(X, bring_11_3),
+											theme(X) = T,
+											dest(X) = D.
+
+				occurs(X) causes has_location(A, D) 		if	instance(X, bring_11_3),
+											actor(X) = A,
+											dest(X) = D.
+
+				occurs(X) causes -has_location(T, I)		if	instance(X, bring_11_3),
+											theme(X) = T,
+											initial(X) = I.
+
+				occurs(X) causes -has_location(A, I)		if	instance(X, bring_11_3),
+											actor(X) = A,
+											initial(X) = I.
+
+				occurs(X) causes -defined_has_location(T)	if	instance(X, bring_11_3),
+											-instance(X, bring_11_3_1),
+											-defined_destination(X),
+											theme(X) = T.

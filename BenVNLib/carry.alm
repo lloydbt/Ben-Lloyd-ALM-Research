@@ -1,0 +1,64 @@
+system description carry
+theory carry
+
+	module carry
+		sort declarations
+			things, location :: universe
+			object, agent :: things
+			carry_11_4 :: actions
+				attributes
+					initial : location
+					theme : object
+					actor : agent
+					dest : location
+
+		function declarations
+			fluents
+				basic
+					total has_location : things * location -> booleans
+
+					defined_theme : carry_11_4 -> booleans
+
+					defined_actor : carry_11_4 -> booleans
+
+					defined_destination : carry_11_4 -> booleans
+
+					defined_has_location : carry_11_4 -> booleans
+
+		axioms
+			function definitions
+
+			state constraints
+				defined_theme(X) if theme(X) = Y.
+
+				false if instance(X, carry_11_4), -defined_theme(X).
+
+				defined_actor(X) if actor(X) = Y.
+
+				false if instance(X, carry_11_4), -defined_actor(X).
+
+			dynamic causal laws
+				occurs(X) causes has_location(A, D)		if	instance(X, carry_11_4),
+											actor(X) = A,
+											dest(X) = D.
+
+				occurs(X) causes has_location(T, D)		if	instance(X, carry_11_4),
+											theme(X) = T,
+											dest(X) = D.
+
+				occurs(X) causes -has_location(A, I)		if	instance(X, carry_11_4),
+                                                                                        actor(X) = A,
+                                                                                        initial(X) = I.
+
+				occurs(X) causes -has_location(T, I)		if	instance(X, carry_11_4),
+                                                                                        theme(X) = T,
+                                                                                        initial(X) = I.
+
+				occurs(X) causes -defined_has_location(A)	if	instance(X, carry_11_4),
+											actor(X) = A,
+											-defined_destination(X).
+
+				occurs(X) causes -defined_has_location(T)       if      instance(X, carry_11_4),
+                                                                                        theme(X) = T,
+                                                                                        -defined_destination(X).
+											

@@ -1,0 +1,47 @@
+system description remove
+theory remove
+
+	module remove
+		sort declarations
+			things, location :: universe
+			object, agent :: things
+			object_or_agent :: agent, object
+			remove_10_1 :: actions
+				attributes
+					initial : location
+					theme : object_or_agent
+					dest : location
+		function declarations
+			fluents
+				basic
+					total has_location : things * location -> booleans
+
+					defined_theme : remove_10_1 -> booleans
+
+					defined_has_location : remove_10_1 -> booleans
+
+					defined_destination : remove_10_1 -> booleans
+		
+		axioms
+			function definitions
+			
+			state constraints
+				defined_theme(X) if theme(X) = Y.
+
+				false if instance(X, remove_10_1), -defined_theme(X).
+
+				defined_destination(X) if dest(X) = Y.
+
+			dynamic causal laws
+				occurs(X) causes has_location(T, D) 		if	instance(X, remove_10_1),
+											theme(X) = T,
+											dest(X) = D.
+
+				occurs(X) causes -has_location(T, I) 		if	instance(X, remove_10_1),
+											theme(X) = T,
+											initial(X) = I.
+
+				occurs(X) causes -defined_has_location(T)	if	instance(X, remove_10_1),
+											theme(X) = T,
+											-defined_destination(X).
+			

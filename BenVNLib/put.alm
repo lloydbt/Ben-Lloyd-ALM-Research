@@ -1,0 +1,51 @@
+system description put
+theory put
+
+	module put
+		sort declarations
+			things, location :: universe
+			object, agent :: things
+			object_or_agent :: agent, object
+			put_9_1 :: actions
+				attributes
+					initial : location
+					theme : object_or_agent
+					dest : location
+			put_9_1_2 :: put_9_1
+
+		function declarations
+			fluents
+				basic
+					total has_location : things * location -> booleans
+
+					defined_theme : put_9_1 -> booleans
+
+					defined_destination : put_9_1_2 -> booleans
+
+					defined_has_location : put_9_1 -> booleans
+
+		axioms
+			function definitions
+
+			state constraints
+				defined_theme(X) if theme(X) = Y.
+				
+				false if instance(X, put_9_1), -defined_theme(X).
+				
+				defined_destination(X) if dest(X) = Y.
+
+				false if instance(X, put_9_1_2), -defined_destination(X).
+
+			dynamic causal laws
+				occurs(X) causes has_location(T, D) 		if	instance(X, put_9_1),
+											theme(X) = T,
+											dest(X) = D.
+				
+				occurs(X) causes -has_location(T, I)		if	instance(X, put_9_1),
+											theme(X) = T,
+											initial(X) = I.
+
+				occurs(X) causes -defined_has_location(T)	if	instance(X, put_9_1),
+											-instance(X, put_9_1_2),
+											-defined_destination(X),
+											theme(X) = T.

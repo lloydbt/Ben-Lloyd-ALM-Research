@@ -1,0 +1,42 @@
+system description obtain
+theory obtain
+	
+	module obtain
+		sort declarations
+			things, location :: universe
+			object, agent :: things
+                        agent_or_location :: location, agent
+			obtain_13_5_2 :: actions
+				attributes
+					target : agent
+					theme : object
+					source1 : agent_or_location
+			obtain_13_5_2_1 :: obtain_13_5_2
+
+		function declarations
+			fluents
+				basic
+					total has_possession : agent_or_location * object -> booleans
+					defined_target : obtain_13_5_2 -> booleans
+					defined_theme :  obtain_13_5_2 -> booleans
+		axioms
+			function definitions
+
+			state constraints
+				defined_target(X) if target(X) = Y.
+				
+				false if instance(X, obtain_13_5_2), -defined_target(X).
+
+				defined_theme(X) if theme(X) = Y.
+
+				false if instance(X, obtain_13_5_2), -defined_theme(X).
+			
+			dynamic causal laws
+				occurs(X) causes has_possession(T, O)	if      instance(X, obtain_13_5_2),
+                                                                                theme(X) = O,
+                                                                                target(X) = T.
+
+				occurs(X) causes -has_possession(S, O)	if      instance(X, obtain_13_5_2),
+                                                                                theme(X) = O,
+                                                                                source1(X) = S.
+

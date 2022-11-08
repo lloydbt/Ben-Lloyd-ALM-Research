@@ -1,0 +1,47 @@
+system description leave
+theory leave
+
+	module leave
+		sort declarations
+			things, location :: universe
+			agent :: things
+			leave_51_2 :: actions
+				attributes
+					initial : location
+					theme : agent
+					dest : location
+			leave_51_2_1 :: leave_51_2
+
+		function declarations
+			fluents
+				basic
+					total has_location : things * location -> booleans
+
+					defined_theme : leave_51_2 -> booleans
+
+					defined_has_location : leave_51_2 -> booleans
+
+					defined_destination : leave_51_2 -> booleans
+
+		axioms
+			function definitions
+
+			state constraints
+				defined_theme(X) if theme(X) = Y.
+
+				false if instance(X, leave_51_2), -defined_theme(X).
+
+				defined_destination(X) if dest(X) = Y.
+	
+			dynamic causal laws
+				occurs(X) causes has_location(T, D)     	if      instance(X, leave_51_2),
+                                                                   	             	theme(X) = T,
+                                                                                	dest(X) = D.
+
+                                occurs(X) causes -has_location(T, I)    	if      instance(X, leave_51_2),
+                                                                                	theme(X) = T,
+                                                                              		initial(X) = I.
+
+                                occurs(X) causes -defined_has_location(T)       if      instance(X, leave_51_2),
+                                                                                        theme(X) = T,
+                                                                                        -defined_destination(X).

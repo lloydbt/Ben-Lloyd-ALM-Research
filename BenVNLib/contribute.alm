@@ -1,0 +1,44 @@
+system description contribute
+theory contribute
+        module contribute
+                sort declarations
+                        things, location :: universe
+                        object, agent :: things
+                        agent_or_location :: location, agent
+                        object_or_agent :: object, agent
+                        contribute_13_2 :: actions
+                                attributes
+                                        target : agent
+                                        theme : object_or_agent
+                                        source1 : agent_or_location
+                        contribute_13_2_2 :: contribute_13_2
+
+                function declarations
+                        fluents
+                                basic
+                                        total has_possession : agent_or_location * object_or_agent -> booleans
+                                        defined_target : contribute_13_2 -> booleans
+                                        defined_theme :  contribute_13_2 -> booleans
+                                        defined_source : contribute_13_2 -> booleans
+                axioms
+                        function definitions
+
+                        state constraints
+                                defined_target(X) if target(X) = Y.
+
+                                false if instance(X, contribute_13_2_2), -defined_target(X).
+
+                                defined_theme(X) if theme(X) = Y.
+                                defined_source(X) if source1(X) = Y.
+
+                                false if instance(X, contribute_13_2), -defined_theme(X).
+                                false if instance(X, contribute_13_2), -defined_source(X).
+
+                        dynamic causal laws
+                                occurs(X) causes has_possession(T, O)   if      instance(X, contribute_13_2),
+                                                                                theme(X) = O,
+                                                                                target(X) = T.
+
+                                occurs(X) causes -has_possession(S, O)  if      instance(X, contribute_13_2),
+                                                                                theme(X) = O,
+                                                                                source1(X) = S.

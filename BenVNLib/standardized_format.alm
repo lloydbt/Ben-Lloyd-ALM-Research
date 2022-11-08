@@ -1,0 +1,16 @@
+system description xyz
+theory xyz
+
+	module xyz
+		sort declarations
+
+		function declarations
+			fluents
+				basic
+
+		axioms
+			function definitions
+
+			state constraints
+
+			dynamic causal laws

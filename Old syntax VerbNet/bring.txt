@@ -1,0 +1,35 @@
+module bring
+sort declarations
+		things, location :: universe
+		object, agent :: things
+		bring-11.3 :: actions
+			attributes 
+				initial:: location
+				theme :: object
+`				actor :: agent
+				dest :: location
+		bring-11.3-1 :: bring-11.3
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+		axioms 
+			occurs (X) causes has_location(T) = D 		if 	instance(X, bring-11.3),
+										theme(X) = T,
+										dest(X) = D.
+			occurs (X) causes has_location(A) = D 		if 	instance(X, bring-11.3),
+										actor(X) = A,
+										dest(X) = D.
+			occurs (X) causes has_location(T) != I 		if 	instance(X, bring-11.3),
+										theme(X) = T,
+										initial(X) = I.
+			occurs (X) causes has_location(A) != I 		if 	instance(X, bring-11.3),
+										actor(X) = A,
+										initial(X) = I.
+			occurs(X) causes -domhas_location(T) 	   	if 	-domdest(X), 
+										instance(X, bring-11.3), 
+										-instance(X, bring-11.3-1),
+										theme(X) = T.
+			false if -domtheme(X), instance(X, bring-11.3).
+			false if -domactor(X), instance(X, bring-11.3).
+			false if -domdest(X), instance(X, bring-11.3-1).

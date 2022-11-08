@@ -1,0 +1,26 @@
+module throw
+sort declarations
+		things, location :: universe
+		object, agent :: things
+object_or_agent :: object, agent
+		throw-17.1 :: actions
+			attributes 
+				initial:: location
+				theme :: object_or_agent
+				dest :: location
+		throw-17.1-1 :: throw-17.1
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+axioms 
+	occurs (X) causes has_location(T) = D if 	instance(X,  throw-17.1),
+									theme(X) = T,
+									dest(X) = D.
+			occurs (X) causes has_location(T) != I if 	instance(X, throw-17.1),
+									theme(X) = T,
+									initial(X) = I.
+occurs(X) causes -domhas_location(T) 	   if 	-domdest(X), 
+instance(X, throw-17.1), 
+theme(X) = T.
+			false if -domtheme(X), instance(X, throw-17.1).

@@ -1,0 +1,37 @@
+module carry
+sort declarations
+		things, location :: universe
+		agent, object :: things
+		carry-11.4 :: actions
+			attributes 
+				initial:: location
+				theme :: object
+				actor :: agent
+				dest :: location
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+		axioms 
+			occurs (X) causes has_location(A) = D 		if 	instance(X, carry-11.4),
+										actor(X) = A,
+										dest(X) = D.
+			occurs (X) causes has_location(A) != I 		if 	instance(X, carry-11.4),
+										actor(X) = A,
+										initial(X) = I.
+			occurs (X) causes has_location(T) = D 		if 	instance(X, carry-11.4),
+										theme(X) = T,
+										dest(X) = D.
+			occurs (X) causes has_location(T) != I 		if 	instance(X, carry-11.4),
+										theme(X) = T,
+										initial(X) = I.
+			occurs(X) causes -domhas_location(T) 	   	if 	-domdest(X), 
+										instance(X, carry-11.4), 
+										-instance(X, carry-11.4),
+										theme(X) = T.
+			occurs(X) causes -domhas_location(A) 	   	if 	-domdest(X), 
+										instance(X, carry-11.4), 
+										-instance(X, carry-11.4),
+										actor(X) = A.
+			false if -domtheme(X), instance(X, carry-11.4).
+			false if -domactor(X), instance(X, carry-11.4).

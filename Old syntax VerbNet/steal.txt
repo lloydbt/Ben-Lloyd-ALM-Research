@@ -1,0 +1,24 @@
+module steal
+sort declarations
+		things, location :: universe
+		object, agent :: things
+object_or_agent :: object, agent
+agent_or_location :: location, agent
+		steal-10.5 :: actions
+			attributes 
+				source:: agent_or_location
+				theme :: object_or_agent
+				target:: agent
+	function declarations
+		fluents
+			basic
+				total has_possession : object_or_agent -> agent
+axioms 
+			occurs (X) causes has_possession(O) = T if 	instance(X, steal-10.5),
+									theme(X) = O,
+									target(X) = T.
+occurs (X) causes has_possession(O) != S if instance(X, steal-10.5),
+									theme(X) = O,
+									source(X) = S.
+			false if -domtheme(X), instance(X, steal-10.5).
+false if -domtarget(X), instance(X, steal-10.5).

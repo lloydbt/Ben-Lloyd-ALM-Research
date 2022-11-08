@@ -1,0 +1,26 @@
+module contribute
+sort declarations
+		things, location :: universe
+		object, agent :: things
+object_or_agent :: object, agent
+agent_or_location :: location, agent
+		contribute-13.2 :: actions
+			attributes 
+				source:: agent
+				theme :: object_or_agent
+				target:: agent
+		contribute-13.2-2 :: contribute-13.2
+	function declarations
+		fluents
+			basic
+				total has_possession : object_or_agent -> agent
+axioms 
+			occurs (X) causes has_possession(O) = T if 	instance(X, contribute-13.2),
+									theme(X) = O,
+									target(X) = T.
+occurs (X) causes has_possession(O) != S if instance(X, contribute-13.2),
+									theme(X) = O,
+									source(X) = S.
+			false if -domtheme(X), instance(X, contribute-13.2).
+false if -domtarget(X), instance(X, contribute-13.2-2).
+false if -domsource(X), instance(X, contribute-13.2).

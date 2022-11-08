@@ -1,0 +1,19 @@
+module appear
+sort declarations
+		things, location :: universe
+		object, agent :: things
+object_or_agent :: object, agent
+		appear-48.1.1 :: actions
+			attributes 
+				theme :: object_or_agent
+				dest :: location
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+axioms 
+	occurs (X) causes has_location(T) = D if 	instance(X, appear-48.1.1),
+									theme(X) = T,
+									dest(X) = D.
+			false if -domtheme(X), instance(X, appear-48.1.1).
+false if -domdest(X), instance(X, appear-48.1.1).

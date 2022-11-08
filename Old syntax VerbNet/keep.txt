@@ -1,0 +1,24 @@
+Keep
+module keep
+sort declarations
+		things, location :: universe
+		agent, object :: things
+		object_or_agent :: agent, object
+		keep-15.2 :: actions
+			attributes 
+				initial:: location
+				theme :: object_or_agent
+				actor :: agent
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+		axioms 
+			occurs (X) causes has_location(T) = I 		if 	instance(X, keep-15.2),
+										theme(X) = T,
+										initial(X) = I.
+			occurs (X) causes has_possession(T) = A 	if 	instance(X, keep-15.2),
+										theme(X) = T,
+										actor(X) = A.
+			false if -domtheme(X), instance(X, keep-15.2).
+			false if -domactor(X), instance(X, keep-15.2).

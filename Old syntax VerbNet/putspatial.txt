@@ -1,0 +1,24 @@
+module putspatial
+sort declarations
+		things, location :: universe
+		object, agent :: things
+object_or_agent :: object, agent
+		putspatial-9.2 :: actions
+			attributes 
+				initial:: location
+				theme :: object_or_agent
+				dest :: location
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+axioms 
+	occurs (X) causes has_location(T) = D if 	instance(X,  putspatial-9.2),
+									theme(X) = T,
+									dest(X) = D.
+			occurs (X) causes has_location(T) != I if 	instance(X, putspatial-9.2),
+									theme(X) = T,
+									initial(X) = I.
+			false if -domtheme(X), instance(X, putspatial-9.2).
+false if -dominitial(X), instance(X, putspatial-9.2).
+false if -domdest(X), instance(X, putspatial-9.2).

@@ -1,0 +1,26 @@
+module get
+sort declarations
+		things, location :: universe
+		object, agent :: things
+object_or_agent :: object, agent
+agent_or_location :: location, agent
+		get-13.5.1 :: actions
+			attributes 
+				source:: agent_or_location
+				theme :: object_or_agent
+				target:: agent
+		get-13.5.1-1 :: get-13.5.1
+	function declarations
+		fluents
+			basic
+				total has_possession : object_or_agent -> agent
+axioms 
+			occurs (X) causes has_possession(O) = T if 	instance(X, get-13.5.1),
+									theme(X) = O,
+									target(X) = T.
+occurs (X) causes has_possession(O) != S if instance(X, get-13.5.1),
+									theme(X) = O,
+									source(X) = S.
+			false if -domtheme(X), instance(X, get-13.5.1).
+false if -domsource(X), instance(X, get-13.5.1-1).
+false if -domtarget(X), instance(X, get-13.5.1-1).

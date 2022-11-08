@@ -1,0 +1,25 @@
+module remove
+sort declarations
+		things, location :: universe
+		agent, object :: things
+		object_or_agent :: agent, object
+		remove-10.1 :: actions
+			attributes 
+				initial:: location
+				theme :: object_or_agent
+				dest :: location
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+		axioms 
+			occurs (X) causes has_location(T) = D 		if 	instance(X, remove-10.1),
+										theme(X) = T,
+										dest(X) = D.
+			occurs (X) causes has_location(T) != I 		if 	instance(X, remove-10.1),
+										theme(X) = T,
+										initial(X) = I.
+			occurs(X) causes -domhas_location(T) 	   	if 	-domdest(X), 
+										instance(X, remove-10.1), 
+										theme(X) = T.
+			false if -domtheme(X), instance(X, remove-10.1).

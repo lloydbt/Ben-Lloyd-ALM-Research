@@ -1,0 +1,24 @@
+module obtain
+	sort declarations
+		things, location :: universe
+		object, agent :: things
+                        agent_or_location :: location, agent
+		obtain-13.5.2 :: actions
+			attributes 
+				target :: agent
+				theme :: object 
+				source :: agent_or_location
+		obtain-13.5.2-1 :: obtain-13.5.2
+	function declarations
+		fluents
+			basic
+				total has_possession : object -> agent_or_location
+		axioms 
+			occurs (X) causes has_possession(O) = T 	if 	instance(X, obtain-13.5.2),
+										theme(X) = O,
+										target(X) = T.
+			occurs (X) causes has_possession(O) != S 	if 	instance(X, obtain-13.5.2),
+										theme(X) = O,
+										source(X) = S.
+			false if  -domtarget(X), instance(X, obtain-13.5.2).
+			false if  -domtheme(X), instance(X, obtain-13.5.2).

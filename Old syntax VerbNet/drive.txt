@@ -1,0 +1,36 @@
+module drive
+sort declarations
+		things, location :: universe
+		object, agent :: things
+object_or_agent :: object, agent
+		drive-11.5 :: actions
+			attributes 
+				initial:: location
+				theme :: object_or_agent
+				actor :: agent
+				dest :: location
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+axioms 
+	occurs (X) causes has_location(T) = D if 	instance(X,  drive-11.5),
+									theme(X) = T,
+									dest(X) = D.
+			occurs (X) causes has_location(T) != I if 	instance(X, drive-11.5),
+									theme(X) = T,
+									initial(X) = I.
+occurs (X) causes has_location(A) = D if 	instance(X,  drive-11.5),
+									actor(X) = A,
+									dest(X) = D.
+			occurs (X) causes has_location(A) != I if 	instance(X, drive-11.5),
+									actor(X) = A,
+									initial(X) = I.
+			occurs(X) causes -domhas_location(T) 	   if 	-domdest(X), 
+instance(X, drive-11.5), 
+theme(X) = T.
+occurs(X) causes -domhas_location(A) 	   if 	-domdest(X), 
+instance(X, drive-11.5), 
+actor(X) = A.
+			false if -domtheme(X), instance(X, drive-11.5).
+false if -domactor(X), instance(X, drive-11.5).

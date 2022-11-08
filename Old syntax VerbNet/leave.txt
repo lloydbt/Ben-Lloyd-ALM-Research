@@ -1,0 +1,25 @@
+module leave
+sort declarations
+		things, location :: universe
+		agent :: things
+		leave-51.2 :: actions
+			attributes 
+				initial:: location
+				theme :: agent
+				dest :: location
+		leave-51.2-1 :: leave-51.2
+	function declarations
+		fluents
+			basic
+				total has_location : things -> location
+		axioms 
+			occurs (X) causes has_location(T) = D 		if 	instance(X, leave-51.2),
+										theme(X) = T,
+										dest(X) = D.
+			occurs (X) causes has_location(T) != I 		if 	instance(X, leave-51.2),
+										theme(X) = T,
+										initial(X) = I.
+			occurs(X) causes -domhas_location(T) 	   	if 	-domdest(X), 
+										instance(X, leave-51.2),
+										theme(X) = T.
+			false if -domtheme(X), instance(X, leave-51.2).
